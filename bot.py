@@ -2,11 +2,15 @@ import os
 import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, ContextTypes, filters
-from dotenv import load_dotenv
 from utils.downloader import download_video, get_video_info
 from utils.helpers import is_valid_youtube_url, cleanup_file
 
-load_dotenv()
+# Render için .env dosyası opsiyonel
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -14,7 +18,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-BOT_TOKEN = os.getenv('8307332359:AAEVlKbDq8sAxQxOJYjdVxahXvaDT0f3Kzo')
+# Environment variable'dan token al
+BOT_TOKEN = os.environ.get('8307332359:AAEVlKbDq8sAxQxOJYjdVxahXvaDT0f3Kzo') or os.getenv('8307332359:AAEVlKbDq8sAxQxOJYjdVxahXvaDT0f3Kzo')
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Start komutu - Hoş geldin mesajı"""
