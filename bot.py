@@ -197,8 +197,24 @@ def main():
     
     application.add_error_handler(error_handler)
     
-    logger.info("🤖 Bot başlatılıyor...")
-    application.run_polling(allowed_updates=Update.ALL_TYPES)
+    # Render URL'sini al (webhook için)
+    render_url = os.environ.get('RENDER_EXTERNAL_URL')
+    port = int(os.environ.get('PORT', 10000))
+    
+    if render_url:
+        # Webhook modu (Render için)
+        webhook_url = f"{render_url}/{BOT_TOKEN}"
+        logger.info(f"🤖 Bot webhook modunda başlatılıyor: {webhook_url}")
+        application.run_webhook(
+            listen="0.0.0.0",
+            port=port,
+            url_path=BOT_TOKEN,
+            webhook_url=webhook_url
+        )
+    else:
+        # Polling modu (yerel test için)
+        logger.info("🤖 Bot polling modunda başlatılıyor...")
+        application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 if __name__ == '__main__':
     main()
