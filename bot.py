@@ -19,7 +19,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Environment variable'dan token al
-BOT_TOKEN = os.environ.get('8307332359:AAEVlKbDq8sAxQxOJYjdVxahXvaDT0f3Kzo') or os.getenv('8307332359:AAEVlKbDq8sAxQxOJYjdVxahXvaDT0f3Kzo')
+BOT_TOKEN = os.environ.get('BOT_TOKEN') or os.getenv('BOT_TOKEN')
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Start komutu - Hoş geldin mesajı"""
