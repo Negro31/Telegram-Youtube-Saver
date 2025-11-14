@@ -3,8 +3,10 @@ services:
     name: youtube-telegram-bot
     runtime: python
     plan: free
+    region: frankfurt
     buildCommand: pip install --upgrade pip && pip install -r requirements.txt
     startCommand: python bot.py
+    healthCheckPath: /
     envVars:
       - key: BOT_TOKEN
         sync: false
